@@ -19,22 +19,28 @@ def yes_no(question):
 
 
 def instructions():
-    print("**** How to Play ****")
-    print()
-    print("pick the lowest number e.g '1' and then pick the highest number e.g '10'")
-    print("the computer will chose a random number between the '1' and the '10'")
-    print()
-    print("your job is to guess the number that the computer has chosen")
-    print("you will have 3 guesses to find the correct number")
-    print()
-    print("when you guess a number the computer will say either 'higher' or 'lower' this will help you to find the number easier")
-    print("")
-    print("")
-    print("")
-    print()
-    print("\t***Good luck, have fun***")
-    print()
-    return "" 
+
+    print(
+
+        """
+
+    **** How To Play ****
+
+    You will start by choosing 2 numbers of your choice to guess between.
+
+    Then the computer will choose a number at random between your 2 chosen numbers.
+
+    You will then have a specific amount of guesses ranging from how big the difference in your 2 numbers is.
+
+    You will guess a number and the computer will say either higher or lower to get you closer to your number.
+
+    ****Good Luck!****
+
+        """
+
+    )
+
+    return ""
 
 played_before = yes_no("have you played the game before?")
 
