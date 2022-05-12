@@ -1,4 +1,4 @@
-
+import random
 
 
 
@@ -10,7 +10,7 @@ def instructions():
         """
 
     **** How To Play ****
-
+    
     You will start by choosing 2 numbers of your choice to guess between.
 
     Then the computer will choose a number at random between your 2 chosen numbers.
@@ -21,33 +21,13 @@ def instructions():
 
     ****Good Luck!****
 
+    
+
         """
 
     )
 
     return ""
-
-def check_rounds():
-
-    while True:
-        response = input("how many rounds: ")
-        round_error = "please type either <enter> or an integer that is more than 0"
-        # if infinite mode is not chosen, chech response
-        # is an integer that is more than 0 
-        if response != "":
-            try:
-                response = int(response)
-                # if respons is too low, go back to start of loop
-                if response < 1:
-                    print(round_error)
-                    continue
-            # if response is not an integer, go back to
-            # start of loop
-            except ValueError:
-                print(round_error)
-                continue
-
-        return response
 
 def choice_checker(question, valid_list, error):
 
@@ -135,7 +115,10 @@ def intcheck(question, low=None, high=None, exit_code = None):
 
 
 # ***** Main Routine ******
+played_before = yes_no("have you played the game before?")
 
+if played_before == "no": 
+    instructions()
 # Ask user for # of rounds..
 rounds = intcheck("How many rounds <enter> for infinite: ", 1, exit_code = "")
 
@@ -159,11 +142,13 @@ for item in range(0, 4):
     guess = intcheck("Guess: ", low_num, high_num, "xxx")
     print("You guessed {}".format(guess))
 
+comp_choice = 0
 
-# ***** Main Routine ******
+comp_num = ["rock", "paper", "scissors", "xxx"]
 
-# Ask user for # of rounds..
-
+for item in range (0,20):
+    comp_choice = random.choice(comp_num[:-1])
+    print(comp_choice, end="\t")
 
 # end game summary
 
