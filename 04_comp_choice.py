@@ -66,7 +66,6 @@ print("You chose a high number of ", high_num)
 
 # loop four times for easy testing
 
-
 while rounds_played <= rounds and end_game == "no":
 
     secret = random.randint(low_num, high_num)
