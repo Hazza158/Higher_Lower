@@ -142,13 +142,8 @@ for item in range(0, 4):
     guess = intcheck("Guess: ", low_num, high_num, "xxx")
     print("You guessed {}".format(guess))
 
-comp_choice = 0
+# computer number choice
 
-comp_num = ["rock", "paper", "scissors", "xxx"]
-
-for item in range (0,20):
-    comp_choice = random.choice(comp_num[:-1])
-    print(comp_choice, end="\t")
 
 # end game summary
 
