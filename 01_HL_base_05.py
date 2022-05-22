@@ -1,3 +1,4 @@
+
 import random
 
 def yes_no(question):
@@ -25,9 +26,13 @@ def instructions():
         """
     **** How To Play ****
     You will start by choosing 2 numbers of your choice to guess between.
+
     Then the computer will choose a number at random between your 2 chosen numbers.
+
     You will then have a specific amount of guesses ranging from how big the difference in your 2 numbers is.
+
     You will guess a number and the computer will say either higher or lower to get you closer to your number.
+    
     ****Good Luck!****
         """
     )
@@ -106,6 +111,7 @@ print("You chose a high number of ", high_num)
 # Ask user for # of rounds..
 rounds = intcheck("How many rounds <enter> for infinite: ", 1, exit_code = "")
 
+
 # Rounds Heading 
 print()
 if rounds == "":
@@ -151,7 +157,7 @@ while rounds_played < rounds and end_game == "no":
             break
 
         elif guess == secret:
-            print("Well done, you guessed correct")
+            print("**Well done, you guessed correct**")
             break
         if guess <= secret:
             print ("Higher")
@@ -160,7 +166,7 @@ while rounds_played < rounds and end_game == "no":
 
         if len(guesses_used) >= guesses_allowed:
             print("sorry you lose")
-            end_game = "yes"
+            #end_game = "yes"
             break
 
 
