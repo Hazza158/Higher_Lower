@@ -1,4 +1,3 @@
-
 import random
 
 def yes_no(question):
@@ -26,13 +25,9 @@ def instructions():
         """
     **** How To Play ****
     You will start by choosing 2 numbers of your choice to guess between.
-
     Then the computer will choose a number at random between your 2 chosen numbers.
-
     You will then have a specific amount of guesses ranging from how big the difference in your 2 numbers is.
-
     You will guess a number and the computer will say either higher or lower to get you closer to your number.
-    
     ****Good Luck!****
         """
     )
@@ -86,13 +81,13 @@ def intcheck(question, low=None, high=None, exit_code = None):
 
 # initialise variables, set up holding list for game history
 rounds_played = 0 
-rounds_won = 0
+rounds_lost = 0
 mode = "regular"
 
 end_game = "no"
 
 game_summary = []
-already_guessed = []
+
 
 # Get user input
 show_instructions = yes_no("Do you want to see the instructions?" )
@@ -102,17 +97,18 @@ if show_instructions == "yes":
 
 # checks that response is an integer    
 low_num = intcheck("Low Number: ")
-print("You chose a low number of ", low_num)
 
 # checks that response is an integer more than the low number
 high_num = intcheck("High Number: ", low_num)
-print("You chose a high number of ", high_num)
+
+
+# calculate max guesses below
+max_guesses = 3
 
 # Ask user for # of rounds..
 rounds = intcheck("How many rounds <enter> for infinite: ", 1, exit_code = "")
 
 
-# Rounds Heading 
 print()
 if rounds == "":
     mode = "infinite"
@@ -123,6 +119,8 @@ if rounds == "":
 while rounds_played < rounds and end_game == "no":
     
     rounds_played += 1
+    guesses_allowed = max_guesses
+    guesses_used = []
 
     print()
     if mode == "infinite":
@@ -134,11 +132,10 @@ while rounds_played < rounds and end_game == "no":
     
     # generate the secret number
     secret = random.randint(low_num, high_num)
-    #print("Spoiler alert", secret)
+    print("Spoiler alert", secret)
     print()
 
-    guesses_allowed = 5
-    guesses_used = []
+
 
     if mode == "infinite":
         rounds += 1
@@ -150,22 +147,23 @@ while rounds_played < rounds and end_game == "no":
         guesses_left = guesses_allowed - len(guesses_used)
     # Put guessing and comparing loop here.
         guess = intcheck("Guess: ", low_num, high_num, "xxx")
-        guesses_used.append(guess)
-        
-        if guess in already_guessed:
-            print("you already guessed that number! please try again"
-            "You still have {} guesses left".format(guesses_left, already_guessed))
+    
+        if guess in guesses_used:
+            print("you already guessed that number! please try again,"
+            " You still have {} guesses left".format(guesses_left, guesses_used))
             continue
 
-        already_guessed.append(guess)
-        # End game if exit code is typed
+
+        guesses_used.append(guess)
         
+        # End game if exit code is typed
+         
         if guess == "xxx" or rounds_played > rounds:
             end_game = "yes"
             break
 
         elif guess == secret:
-            print("**Well done, you guessed correct**")
+            feedback = "Well done, you got it in {} guesses".format(len(guesses_used))
             break
         if guess <= secret:
             print ("Higher")
@@ -173,10 +171,29 @@ while rounds_played < rounds and end_game == "no":
             print ("Lower")
 
         if len(guesses_used) >= guesses_allowed:
-            print("sorry you lose")
+            feedback = "sorry you lose"
+            rounds_lost += 1
             #end_game = "yes"
             break
 
+    outcome = "Round {}: {}".format(rounds_played, feedback)
+    game_summary.append(outcome)
 
+rounds_won = rounds_played - rounds_lost
+
+# **** Calculate Game Stats ******
+percent_win = rounds_won / rounds_played * 100
+percent_lose = rounds_lost / rounds_played * 100
+
+
+print()
+print ("***** Game History *****")
+for game in game_summary:
+    print(game)
+
+print()
+# displays game stats with % values to the nearest whole number
+print("******* Game Statistics *******")
+print ("Win {}, ({:.0f}%) \nLoss: {}, " "({:.0f}%)".format(rounds_won,percent_win,rounds_lost,percent_lose))
 
 print("Thank you for playing")
